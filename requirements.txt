@@ -1,0 +1,19 @@
+# 크롤링
+requests==2.31.0
+beautifulsoup4==4.12.3
+lxml==5.1.0
+
+# 데이터베이스
+pymongo==4.6.1
+
+# LLM
+anthropic==0.18.1
+
+# 영상 제작
+moviepy==1.0.3
+Pillow==10.2.0
+gTTS==2.5.0
+
+# 유틸리티
+python-dotenv==1.0.1
+
