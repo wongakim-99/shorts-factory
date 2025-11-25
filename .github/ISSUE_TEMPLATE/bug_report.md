@@ -1,9 +1,8 @@
-# name: 🐛 버그 리포트 (Bug Report)
-
+---
+name: 🐛 버그 리포트 (Bug Report)
 about: 쇼츠 공장에서 발생한 버그나 오류를 제보해주세요.
 title: "[Bug] "
 labels: hotfix
-<br/>
 ---
 
 ### 🐛 버그 설명

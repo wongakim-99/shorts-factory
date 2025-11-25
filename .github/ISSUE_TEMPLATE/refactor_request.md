@@ -1,9 +1,8 @@
-# name: 🔧 인핸스드 (Enhancement)
-
+---
+name: 🔧 인핸스드 (Enhancement)
 about: 코드 개선이나 구조 변경을 제안해주세요
 title: "[Enhancement] "
 labels: enhancement
-<br/>
 ---
 
 ### 🎯 리팩토링 대상

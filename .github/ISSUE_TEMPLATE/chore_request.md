@@ -1,9 +1,8 @@
-# name: 🧹 유지보수 (Chore)
-
+---
+name: 🧹 유지보수 (Chore)
 about: 빌드, 설정, 의존성 관리 등 유지보수 작업을 제안해주세요
 title: "[Chore] "
 labels: chore
-<br/>
 ---
 
 ### 🎯 작업 유형
