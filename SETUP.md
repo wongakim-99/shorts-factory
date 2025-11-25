@@ -78,7 +78,7 @@ python3 main.py
 
 ```bash
 # 크롤러만 실행
-cd app && python3 modules/crawler.py
+cd app && python3 modules/crawler_main.py
 ```
 
 ---
