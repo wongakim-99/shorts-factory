@@ -3,8 +3,8 @@
 """
 
 # 상수 설정
-GALLERY_ID = "us_stocks"  # DC인사이드 미국주식 갤러리 ID
-BASE_URL = f"https://gall.dcinside.com/mgallery/board/lists"
+GALLERY_ID = "stockus"  # DC인사이드 미국주식 갤러리 ID
+BASE_URL = "https://gall.dcinside.com/mgallery/board/lists"
 
 # 헤더 설정
 HEADERS = {

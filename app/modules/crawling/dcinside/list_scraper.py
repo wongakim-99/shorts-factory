@@ -34,13 +34,13 @@ def get_post_list(page: int=1, recommend_only: bool = True) -> List[Dict]:
     """
 
     params = {
-        'id' : GALLERY_ID,
-        'page' : page,
+        'id': GALLERY_ID,
+        'page': page,
     }
 
-    # 개념글만 확인 (추천수 기준)
+    # 개념글만 확인 (exception_mode 사용)
     if recommend_only:
-        params['recommend'] = '1'
+        params['exception_mode'] = 'recommend'
 
     try:
         response = requests.get(BASE_URL, params=params, headers=HEADERS, timeout=10)
