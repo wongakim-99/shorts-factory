@@ -1,0 +1,53 @@
+services:
+  # MongoDB 서비스
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb-shorts
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped  # MongoDB는 계속 실행
+    command: mongod --quiet --logpath /dev/null  # 로그 완전히 숨기기
+    logging:
+      driver: "none"  # Docker 로그도 완전히 숨기기
+      options:
+        max-size: "1m"
+        max-file: "1"
+        tag: ""
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Python 애플리케이션 서비스
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shorts-factory-app
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    env_file:
+      - .env
+    volumes:
+      # 코드 수정 즉시 반영 (개발 편의성)
+      - ./app:/app/app
+      - ./main.py:/app/main.py
+      - ./output:/app/output
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/
+      - MONGO_DB_NAME=${MONGO_DB_NAME:-shorts_factory}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GPT_API_KEY=${GPT_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - CRAWL_PAGES=${CRAWL_PAGES:-3}
+      - CRAWL_DELAY=${CRAWL_DELAY:-2}
+    restart: "no"  # 앱은 한 번만 실행
+
+volumes:
+  mongodb_data:
+    driver: local
+

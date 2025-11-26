@@ -47,7 +47,13 @@ def save_posts(posts: List[Dict], db_name: str = None) -> int:
             if result.upserted_id or result.modified_count > 0:
                 saved_count += 1
 
-        logger.info(f"💾 MongoDB 저장 완료: {saved_count}개 (전체 {len(posts)}개)")
+        logger.info("=" * 60)
+        logger.info("💾 MongoDB Save Status")
+        logger.info(f"   Saved Count: {saved_count}")
+        logger.info(f"   Total Count: {len(posts)}")
+        logger.info(f"   Database: {db_name}")
+        logger.info(f"   Collection: posts")
+        logger.info("=" * 60)
         return saved_count
 
     except Exception as e:

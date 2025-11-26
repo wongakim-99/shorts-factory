@@ -25,8 +25,17 @@ def get_mongo_client() -> MongoClient:
         client = MongoClient(mongo_uri, serverSelectionTimeoutMS=5000)
         # 연결 테스트
         client.admin.command('ping')
-        logger.info(f"✅ MongoDB 연결 성공: {mongo_uri}")
+        logger.info("=" * 60)
+        logger.info("🔌  MongoDB Connection Status")
+        logger.info(f"   URI: {mongo_uri}")
+        logger.info(f"   Status: ✅ MongoDB Connected Successfully")
+        logger.info("=" * 60)
         return client
     except Exception as e:
-        logger.error(f"❌ MongoDB 연결 실패: {e}")
+        logger.error("=" * 60)
+        logger.error("🔌  MongoDB Connection Status")
+        logger.error(f"   URI: {mongo_uri}")
+        logger.error(f"   Status: ❌ MongoDB Connection Failed")
+        logger.error(f"   Error: {e}")
+        logger.error("=" * 60)
         raise

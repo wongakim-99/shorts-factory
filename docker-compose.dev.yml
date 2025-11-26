@@ -1,0 +1,37 @@
+
+# 개발용 Docker Compose (코드 수정 즉시 반영)
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb-shorts
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shorts-factory-app
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+    volumes:
+      # 전체 프로젝트 마운트 (개발 편의성)
+      - .:/app
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/
+      - MONGO_DB_NAME=${MONGO_DB_NAME:-shorts_factory}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - CRAWL_PAGES=${CRAWL_PAGES:-3}
+      - CRAWL_DELAY=${CRAWL_DELAY:-2}
+    # 개발 모드: 코드 수정 시 자동 재시작
+    command: python main.py
+
+volumes:
+  mongodb_data:
+

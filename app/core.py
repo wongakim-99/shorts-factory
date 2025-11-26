@@ -7,6 +7,8 @@ Shorts Factory - 애플리케이션 핵심 로직
 
 import os
 import sys
+import logging
+
 from pathlib import Path
 
 # 프로젝트 루트를 파이썬 경로에 추가
@@ -15,39 +17,45 @@ sys.path.insert(0, str(project_root))
 
 from modules.crawling.crawler_main import crawl_gallery
 
+# 로깅 설정
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 def main():
     """메인 실행 함수"""
-    print("=" * 60)
-    print("🎬 Shorts Factory - 경제 쇼츠 자동 생성 시스템")
-    print("=" * 60)
-    print()
+    logger.info("=" * 60)
+    logger.info("🎬 Shorts Factory - 경제 쇼츠 자동 생성 시스템")
+    logger.info("=" * 60)
+    logger.info("")  # 빈 줄
     
     # Phase 1: 데이터 수집
-    print("📡 [Phase 1] 데이터 크롤링 시작...")
+    logger.info("📡 [Phase 1] 데이터 크롤링 시작...")
     try:
         posts = crawl_gallery(
             pages=int(os.getenv('CRAWL_PAGES', 3)),
             delay=float(os.getenv('CRAWL_DELAY', 2.0)),
             save_to_db=True
         )
-        print(f"✅ 크롤링 완료: {len(posts)}개 게시글 수집")
+        logger.info(f"✅ 크롤링 완료: {len(posts)}개 게시글 수집")
     except Exception as e:
-        print(f"❌ 크롤링 실패: {e}")
+        logger.error(f"❌ 크롤링 실패: {e}")
         return
     
     # Phase 2: 대본 작성 (추후 구현)
-    print()
-    print("✍️  [Phase 2] LLM 대본 작성... (미구현)")
+    logger.info("")  # 빈 줄
+    logger.info("✍️  [Phase 2] LLM 대본 작성... (미구현)")
     
     # Phase 3: 영상 생성 (추후 구현)
-    print()
-    print("🎥 [Phase 3] 영상 생성... (미구현)")
+    logger.info("")  # 빈 줄
+    logger.info("🎥 [Phase 3] 영상 생성... (미구현)")
     
-    print()
-    print("=" * 60)
-    print("🎉 프로세스 완료!")
-    print("=" * 60)
+    logger.info("")  # 빈 줄
+    logger.info("=" * 60)
+    logger.info("🎉 프로세스 완료!")
+    logger.info("=" * 60)
 
 
 if __name__ == '__main__':
