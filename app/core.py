@@ -34,10 +34,17 @@ def main():
     # Phase 1: 데이터 수집
     logger.info("📡 [Phase 1] 데이터 크롤링 시작...")
     try:
+        # 환경변수에서 설정 읽기
+        max_posts = os.getenv('MAX_POSTS')  # None이면 제한 없음
+        max_posts = int(max_posts) if max_posts else None
+        cleanup_days = int(os.getenv('IMAGE_CLEANUP_DAYS', 7))
+        
         posts = crawl_gallery(
-            pages=int(os.getenv('CRAWL_PAGES', 3)),
+            pages=int(os.getenv('CRAWL_PAGES', 1)),
             delay=float(os.getenv('CRAWL_DELAY', 2.0)),
-            save_to_db=True
+            save_to_db=True,
+            max_posts=max_posts,
+            cleanup_days=cleanup_days
         )
         logger.info(f"✅ 크롤링 완료: {len(posts)}개 게시글 수집")
     except Exception as e:

@@ -54,16 +54,20 @@ def get_post_list(page: int=1, recommend_only: bool = True) -> List[Dict]:
 
         for row in rows:
             try:
-                # 공지글 제외
-                if 'notice' in row.get('class', []):
-                    continue
-
                 # 게시글 번호 추출
                 num_cell = row.select_one('td.gall_num')
                 if not num_cell or not num_cell.text.strip().isdigit():
                     continue
 
                 post_id = num_cell.text.strip()
+
+                # 말머리 확인 (공지, 설문, AD 제외)
+                subject_cell = row.select_one('td.gall_subject')
+                if subject_cell:
+                    subject_text = subject_cell.get_text(strip=True)
+                    if subject_text in ['공지', '설문', 'AD']:
+                        logger.debug(f"⏭️ '{subject_text}' 글 스킵: {post_id}")
+                        continue
 
                 # 제목 추출
                 title_elem = row.select_one('td.gall_tit a')

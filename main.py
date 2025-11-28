@@ -13,7 +13,7 @@ app_dir = Path(__file__).parent / 'app'
 sys.path.insert(0, str(app_dir))
 
 # app/core.py의 main 함수 실행
-from core import main
+from app.core import main
 
 if __name__ == '__main__':
     main()
