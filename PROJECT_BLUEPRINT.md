@@ -25,16 +25,21 @@
   - 오디오: OpenAI TTS (or gTTS) + 배경음악 합성
 
 ## 3. 폴더 구조 (Directory Structure)
-money_printer/
-├── assets/
-│   ├── video/
-│   ├── fonts/
-│   └── audio/
-├── output/
-├── modules/
-│   ├── crawler.py
-│   ├── llm_writer.py
-│   └── video_maker.py
+shorts-factory/
+├── app/
+│   ├── assets/          # 리소스
+│   │   ├── video/       # 배경 영상 (bull.mp4, bear.mp4)
+│   │   ├── fonts/       # 폰트 파일
+│   │   └── audio/       # 배경음악
+│   ├── output/          # 출력 파일
+│   │   ├── images/      # 크롤링 이미지 (날짜별 폴더)
+│   │   └── videos/      # 생성된 영상
+│   ├── modules/
+│   │   ├── crawling/    # 크롤러
+│   │   ├── llm/         # 대본 작성
+│   │   └── video/       # 영상 생성
+│   └── core.py
+├── tests/
 ├── main.py
 ├── .env
 └── requirements.txt

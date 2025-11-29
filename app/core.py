@@ -16,6 +16,7 @@ project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
 
 from modules.crawling.crawler_main import crawl_gallery
+from modules.llm.llm_writer import generate_scripts_batch
 
 # 로깅 설정
 logging.basicConfig(
@@ -51,9 +52,18 @@ def main():
         logger.error(f"❌ 크롤링 실패: {e}")
         return
     
-    # Phase 2: 대본 작성 (추후 구현)
+    # Phase 2: 대본 작성
     logger.info("")  # 빈 줄
-    logger.info("✍️  [Phase 2] LLM 대본 작성... (미구현)")
+    logger.info("✍️  [Phase 2] LLM 대본 작성 시작...")
+    try:
+        # 환경변수에서 생성할 대본 수 읽기 (기본값: 5)
+        script_limit = int(os.getenv('SCRIPT_LIMIT', 5))
+        
+        script_count = generate_scripts_batch(limit=script_limit)
+        logger.info(f"✅ 대본 생성 완료: {script_count}개 대본 생성")
+    except Exception as e:
+        logger.error(f"❌ 대본 생성 실패: {e}")
+        # 대본 생성 실패해도 계속 진행
     
     # Phase 3: 영상 생성 (추후 구현)
     logger.info("")  # 빈 줄

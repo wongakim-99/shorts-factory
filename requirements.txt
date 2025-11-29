@@ -9,6 +9,7 @@ pymongo==4.6.1
 
 # LLM
 anthropic==0.18.1
+google-generativeai==0.3.2
 
 # 영상 제작
 moviepy==1.0.3

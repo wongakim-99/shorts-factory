@@ -142,10 +142,12 @@ shorts-factory/
 │   │   ├── llm_writer.py # 대본 작성 (예정)
 │   │   └── video_maker.py # 영상 생성 (예정)
 │   ├── assets/       # 리소스
-│   │   ├── video/    # 배경 영상
+│   │   ├── video/    # 배경 영상 (bull.mp4, bear.mp4)
 │   │   ├── fonts/    # 폰트 파일
 │   │   └── audio/    # 배경음악
-│   ├── output/       # 생성된 영상
+│   ├── output/       # 출력 파일
+│   │   ├── images/   # 크롤링 이미지 (날짜별 폴더)
+│   │   └── videos/   # 생성된 영상 (추후 구현)
 │   └── core.py       # 앱 핵심 로직
 ├── tests/            # 테스트 코드
 │   └── test_mongo.py # MongoDB 연결 테스트

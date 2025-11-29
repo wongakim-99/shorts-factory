@@ -34,9 +34,9 @@ services:
       - .env
     volumes:
       # 코드 수정 즉시 반영 (개발 편의성)
+      # app/output/은 ./app:/app/app 마운트에 포함됨
       - ./app:/app/app
       - ./main.py:/app/main.py
-      - ./output:/app/output
     environment:
       - MONGO_URI=mongodb://mongodb:27017/
       - MONGO_DB_NAME=${MONGO_DB_NAME:-shorts_factory}
