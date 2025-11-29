@@ -30,6 +30,9 @@ app/output/
 *.mp3
 *.wav
 
+# 임시 assets (이미지 첨부 등으로 자동 생성되는 파일)
+/assets/
+
 # MacOS
 .DS_Store
 .AppleDouble

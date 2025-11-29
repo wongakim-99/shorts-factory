@@ -25,7 +25,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 
-from .constants import GALLERY_ID, BASE_URL, HEADERS
+from app.modules.crawling.dcinside.constants import GALLERY_ID, BASE_URL, HEADERS
 
 # 로깅 설정
 logging.basicConfig(

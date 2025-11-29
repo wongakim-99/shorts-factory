@@ -15,8 +15,8 @@ from datetime import datetime
 
 import google.generativeai as genai
 
-from ..prompt.prompt_builder import create_script_prompt
-from ..client.gemini_client import call_gemini_api
+from app.modules.llm.prompt.prompt_builder import create_script_prompt
+from app.modules.llm.client.gemini_client import call_gemini_api
 
 
 # 로깅 설정
@@ -38,6 +38,8 @@ def generate_script_with_gemini(model: genai.GenerativeModel, post: Dict) -> Opt
     Returns:
         생성된 대본 딕셔너리 또는 None
     """
+    script_text = None  # 초기화 (에러 처리에서 참조 가능하도록)
+    
     try:
         prompt = create_script_prompt(post)
 
@@ -70,7 +72,7 @@ def generate_script_with_gemini(model: genai.GenerativeModel, post: Dict) -> Opt
 
     except json.JSONDecodeError as e:
         logger.error(f"❌ JSON 파싱 실패: {e}")
-        logger.error(f"   응답 내용: {script_text[:200] if 'script_text' in locals() else 'N/A'}...")
+        logger.error(f"   응답 내용: {script_text[:200] if script_text else 'N/A'}...")
         return None
     except Exception as e:
         logger.error(f"❌ 대본 생성 실패: {e}")

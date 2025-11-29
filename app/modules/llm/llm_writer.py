@@ -3,9 +3,9 @@
 import logging
 import time
 
-from .client.gemini_client import init_gemini_api
-from .generator.script_generator import generate_script_with_gemini
-from .repository.script_repository import fetch_posts_without_script, save_script_to_db
+from app.modules.llm.client.gemini_client import init_gemini_api
+from app.modules.llm.generator.script_generator import generate_script_with_gemini
+from app.modules.llm.repository.script_repository import fetch_posts_without_script, save_script_to_db
 
 # 로깅 설정
 logging.basicConfig(

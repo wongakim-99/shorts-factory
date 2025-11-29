@@ -5,7 +5,7 @@ import logging
 from typing import List, Dict
 from datetime import datetime
 
-from .connection_db import get_mongo_client
+from app.modules.crawling.manager.connection_db import get_mongo_client
 
 # 로깅 설정
 logging.basicConfig(

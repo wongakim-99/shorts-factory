@@ -9,10 +9,10 @@ import logging
 from typing import List, Dict
 from dotenv import load_dotenv
 
-# 분리된 모듈들 import (동일 패키지 내 상대 경로)
-from .dcinside.list_scraper import get_post_list
-from .dcinside.detail_scraper import get_post_detail, cleanup_old_images
-from .manager.save_db import save_posts
+# 분리된 모듈들 import (절대 경로)
+from app.modules.crawling.dcinside.list_scraper import get_post_list
+from app.modules.crawling.dcinside.detail_scraper import get_post_detail, cleanup_old_images
+from app.modules.crawling.manager.save_db import save_posts
 
 # 환경변수 로드
 load_dotenv()

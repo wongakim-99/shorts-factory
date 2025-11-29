@@ -11,7 +11,7 @@ import logging
 from typing import List, Dict, Optional
 from bs4 import BeautifulSoup
 
-from .constants import GALLERY_ID, BASE_URL, HEADERS
+from app.modules.crawling.dcinside.constants import GALLERY_ID, BASE_URL, HEADERS
 
 # 로깅 설정
 logging.basicConfig(
