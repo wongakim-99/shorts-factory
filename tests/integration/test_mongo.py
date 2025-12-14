@@ -3,7 +3,7 @@ MongoDB 연결 테스트 스크립트
 Docker MongoDB가 정상 작동하는지 확인
 
 Usage:
-    python3 tests/test_mongo.py
+    python3 tests/integration/test_mongo.py
 """
 
 import os

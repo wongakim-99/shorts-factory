@@ -2,7 +2,7 @@
 Gemini API 및 대본 생성 테스트
 
 Usage:
-    python3 tests/test_gemini.py
+    python3 tests/llm/test_gemini.py
 """
 
 import sys
@@ -10,15 +10,15 @@ import os
 from pathlib import Path
 
 # 프로젝트 루트를 Python 경로에 추가
-project_root = Path(__file__).parent.parent
-sys.path.insert(0, str(project_root / 'app'))
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
 
-from modules.llm.llm_writer import (
-    init_gemini_api,
-    fetch_posts_without_script,
-    generate_script_with_gemini,
+from app.modules.llm.llm_writer import (
     generate_scripts_batch
 )
+from app.modules.llm.client.gemini_client import init_gemini_api
+from app.modules.llm.repository.script_repository import fetch_posts_without_script
+from app.modules.llm.generator.script_generator import generate_script_with_gemini
 
 def test_gemini_connection():
     """Gemini API 연결 테스트"""
@@ -93,12 +93,37 @@ def test_single_script_generation():
         
         if script_data:
             print("\n✅ 대본 생성 성공!")
-            print("\n[후킹]")
-            print(script_data.get('hook', ''))
-            print("\n[메인]")
-            print(script_data.get('main', '')[:200] + "...")
-            print("\n[결론]")
-            print(script_data.get('conclusion', ''))
+            
+            # 새로운 JSON 구조 출력
+            script_segments = script_data.get('script_segments', [])
+            full_text_for_thumbnail = script_data.get('full_text_for_thumbnail', '')
+            
+            if script_segments:
+                print("\n📝 대본 세그먼트:")
+                print("=" * 60)
+                for idx, segment in enumerate(script_segments, 1):
+                    role = segment.get('role', 'unknown')
+                    text = segment.get('text', '')
+                    emotion = segment.get('emotion', '')
+                    duration = segment.get('duration_estimate', 0)
+                    
+                    role_emoji = "🎙️" if role == "narrator" else "💬"
+                    emotion_text = f" [{emotion}]" if emotion else ""
+                    duration_text = f" ({duration}초)" if duration else ""
+                    
+                    print(f"\n[{idx}] {role_emoji} {role.upper()}{emotion_text}{duration_text}")
+                    print(f"    {text[:100]}{'...' if len(text) > 100 else ''}")
+                
+                print("\n" + "=" * 60)
+            
+            if full_text_for_thumbnail:
+                print(f"\n📌 썸네일용 텍스트: {full_text_for_thumbnail}")
+            
+            # 메타데이터 출력
+            print(f"\n📊 메타데이터:")
+            print(f"    - 생성 시간: {script_data.get('generated_at', 'N/A')}")
+            print(f"    - 모델: {script_data.get('model', 'N/A')}")
+            print(f"    - 게시글 ID: {script_data.get('post_id', 'N/A')}")
         else:
             print("❌ 대본 생성 실패")
         
@@ -155,3 +180,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+

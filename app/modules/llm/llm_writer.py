@@ -72,3 +72,5 @@ def generate_scripts_batch(limit: int = 5) -> int:
 if __name__ == '__main__':
     # 테스트 실행
     generate_scripts_batch(limit=5)
+
+
